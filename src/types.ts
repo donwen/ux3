@@ -9,6 +9,8 @@ export interface Video {
   thumbnailUrl?: string;
   likes?: number;
   views_count?: number;
+  articleUrl?: string;
+  category?: string;
 }
 
 export interface VideoLike {

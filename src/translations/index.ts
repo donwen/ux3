@@ -54,6 +54,7 @@ export const translations = {
     creator: 'Creator',
     page: 'Page',
     darkMode: 'Toggle dark mode',
+    lightMode: 'Toggle light mode',
     language: 'Change language',
     watchVideo: 'Watch video',
     loading: 'Loading...',
@@ -72,7 +73,16 @@ export const translations = {
     shareVideo: 'Share Video',
     linkCopied: 'Link copied!',
     share: 'Share',
-    copyShareLink: 'Copy this link to share:'
+    copyShareLink: 'Copy this link to share:',
+    preview: 'Preview',
+    scrollForMore: 'Scroll for more',
+    goBack: 'Go back',
+    description: 'Description',
+    comments: 'Comments',
+    readMore: 'Read more',
+    showLess: 'Show less',
+    readArticle: 'Read article',
+    like: 'Like'
   },
   zh: {
     title: 'UX3 期中報告案例影片',
@@ -84,6 +94,7 @@ export const translations = {
     creator: '創作者',
     page: '頁面',
     darkMode: '切換深色模式',
+    lightMode: '切換淺色模式',
     language: '切換語言',
     watchVideo: '觀看影片',
     loading: '載入中...',
@@ -102,6 +113,15 @@ export const translations = {
     shareVideo: '分享影片',
     linkCopied: '已複製連結！',
     share: '分享',
-    copyShareLink: '複製此連結以分享：'
+    copyShareLink: '複製此連結以分享：',
+    preview: '預覽',
+    scrollForMore: '下滑載入更多',
+    goBack: '返回',
+    description: '詳細描述',
+    comments: '評論',
+    readMore: '閱讀更多',
+    showLess: '收起',
+    readArticle: '閱讀文章',
+    like: '喜歡'
   }
 } as const;
