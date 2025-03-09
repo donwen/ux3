@@ -27,6 +27,14 @@ const VideoGrid: React.FC<VideoGridProps> = ({ videos, onLoadMore, hasMore }) =>
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const { addBlossoms } = useCherryBlossom();
 
+  // 添加調試日誌
+  useEffect(() => {
+    console.log('VideoGrid mounted. 視頻數量:', videos.length);
+    if (videos.length > 0) {
+      console.log('首個視頻示例:', videos[0]);
+    }
+  }, [videos]);
+
   // 從 localStorage 加載之前的點讚數據
   useEffect(() => {
     try {

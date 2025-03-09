@@ -8,7 +8,7 @@ import Logo from './components/Logo';
 import VideoPage from './pages/VideoPage';
 import SortControl, { SortOption } from './components/SortControl';
 import { Video } from './types';
-import { supabase, getVideosWithFallback } from './lib/supabaseClient';
+import { getVideosWithFallback } from './lib/supabaseClient';
 import { useTranslation } from './hooks/useTranslation';
 import CherryBlossomProvider from './contexts/CherryBlossomContext';
 import TestPage from './pages/TestPage';
@@ -25,14 +25,22 @@ function App() {
   
   const videosPerPage = 24;
 
+  // 添加調試日誌
+  useEffect(() => {
+    console.log('應用程序初始化 - 環境:', import.meta.env.MODE);
+    console.log('基礎URL:', import.meta.env.BASE_URL || '/ux3');
+  }, []);
+
   const loadVideos = async (pageNumber: number) => {
     try {
       setIsLoading(true);
+      console.log('開始加載視頻數據...');
       const from = (pageNumber - 1) * videosPerPage;
       const to = from + videosPerPage - 1;
       
       // 使用帶後備功能的API調用
       const videos = await getVideosWithFallback();
+      console.log('獲取到視頻數據:', videos.length);
       
       // 本地分頁處理
       const paginatedVideos = videos.slice(from, to + 1);
@@ -72,7 +80,7 @@ function App() {
   );
 
   return (
-    <Router basename={import.meta.env.BASE_URL || '/ux3'}>
+    <Router>
       <CherryBlossomProvider>
         <div className="min-h-screen bg-pink-50 dark:bg-gray-900 kawaii-dot-pattern">
           <div className="parallax-bg" />
@@ -170,17 +178,17 @@ function App() {
                   <div>
                     <h3 className="font-kawaii text-sm text-primary-700 dark:text-primary-300 mb-2">連結</h3>
                     <ul className="space-y-1">
-                      <li><a href="#" className="menu-item text-sm inline-block">首頁</a></li>
-                      <li><a href="#" className="menu-item text-sm inline-block">關於我們</a></li>
-                      <li><a href="#" className="menu-item text-sm inline-block">聯繫我們</a></li>
+                      <li><a href="#/" className="menu-item text-sm inline-block">首頁</a></li>
+                      <li><a href="#/test" className="menu-item text-sm inline-block">測試頁面</a></li>
+                      <li><a href="#/contact" className="menu-item text-sm inline-block">聯繫我們</a></li>
                     </ul>
                   </div>
                   <div>
                     <h3 className="font-kawaii text-sm text-primary-700 dark:text-primary-300 mb-2">工具</h3>
                     <ul className="space-y-1">
-                      <li><a href="#" className="menu-item text-sm inline-block">上傳影片</a></li>
-                      <li><a href="#" className="menu-item text-sm inline-block">設定</a></li>
-                      <li><a href="#" className="menu-item text-sm inline-block">幫助中心</a></li>
+                      <li><a href="#/" className="menu-item text-sm inline-block">上傳影片</a></li>
+                      <li><a href="#/" className="menu-item text-sm inline-block">設定</a></li>
+                      <li><a href="#/" className="menu-item text-sm inline-block">幫助中心</a></li>
                     </ul>
                   </div>
                 </div>

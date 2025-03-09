@@ -21,6 +21,19 @@
   body {
     @apply antialiased font-kawaii bg-pink-50 dark:bg-gray-900;
     background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffb6c1' fill-opacity='0.1' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+    /* 確保內容可見 */
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* 確保所有內容可見 */
+  #root {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 100vh;
   }
 
   /* Typography */
@@ -51,204 +64,191 @@
   }
 
   .btn-primary {
-    @apply bg-primary-500 text-white hover:bg-primary-400 shadow-kawaii 
-           hover:shadow-kawaii-hover dark:bg-primary-600 dark:hover:bg-primary-500;
+    @apply bg-primary-500 text-white hover:bg-primary-600 dark:bg-primary-600 
+           dark:hover:bg-primary-500 shadow-sm hover:shadow;
   }
 
   .btn-secondary {
-    @apply bg-kawaii-peach text-primary-800 hover:bg-kawaii-peach/90 shadow-kawaii
-           hover:shadow-kawaii-hover dark:bg-kawaii-lavender/90 dark:text-primary-900;
+    @apply bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 
+           border border-gray-200 dark:border-gray-700 hover:bg-gray-50 
+           dark:hover:bg-gray-700 shadow-sm hover:shadow;
   }
 
-  /* Kawaii Input styles with focus animations */
   .input {
-    @apply w-full px-4 py-3 rounded-kawaii border-2 border-kawaii-pink/30 
-           bg-white/80 dark:bg-gray-800/80 text-gray-900 dark:text-gray-100
-           focus:outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-300
-           placeholder-gray-400 dark:placeholder-gray-500 shadow-sm
-           transition-all duration-200;
+    @apply w-full px-4 py-2 bg-white dark:bg-gray-800 rounded-kawaii 
+           border border-gray-200 dark:border-gray-700 
+           focus:border-primary-500 dark:focus:border-primary-400
+           text-gray-700 dark:text-gray-200 outline-none
+           placeholder:text-gray-400 dark:placeholder:text-gray-500;
   }
 
   .input:focus {
-    @apply animate-border-glow;
+    @apply ring-1 ring-primary-500 dark:ring-primary-400 
+           border-primary-500 dark:border-primary-400;
   }
 
-  /* Kawaii Card styles with hover animations */
+  /* 視頻卡片樣式 */
   .card {
-    @apply bg-white/90 dark:bg-gray-800/90 rounded-none
-           border border-kawaii-pink/10 dark:border-primary-700/20 overflow-hidden
-           transition-all duration-300 hover:shadow-kawaii-hover
-           transform hover:-translate-y-1 hover:scale-[1.01];
+    @apply bg-white dark:bg-gray-800 rounded-kawaii overflow-hidden shadow-sm
+           hover:shadow-md dark:shadow-none dark:border dark:border-gray-700;
   }
 
-  /* Kawaii menu item hover effect */
   .menu-item {
-    @apply relative py-2 px-4 font-kawaii text-primary-700 dark:text-primary-300
-           hover:text-primary-500 dark:hover:text-primary-400
-           transition-colors duration-200;
+    @apply text-gray-600 dark:text-gray-400 hover:text-primary-500 
+           dark:hover:text-primary-400 relative inline-block;
   }
 
   .menu-item::after {
     content: '';
-    @apply absolute bottom-0 left-1/2 h-1 w-0 bg-primary-400 rounded-full
-           -translate-x-1/2 transform scale-x-0 transition-all duration-200;
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-primary-500 dark:bg-primary-400 
+           transition-all duration-300;
   }
 
   .menu-item:hover::after {
-    @apply w-2/3 scale-x-100;
+    @apply w-full;
   }
 
-  /* Kawaii Scroll to top button */
   .scroll-top {
-    @apply fixed bottom-6 right-6 p-3 rounded-full bg-primary-500 text-white
-           shadow-kawaii hover:shadow-kawaii-hover hover:bg-primary-400
-           transform hover:scale-110 hover:-translate-y-1 active:translate-y-1 active:scale-95
-           transition-all duration-200 ease-out
-           opacity-0 pointer-events-none;
+    @apply fixed bottom-4 right-4 w-10 h-10 bg-white dark:bg-gray-800 
+           rounded-full shadow-md flex items-center justify-center 
+           text-gray-600 dark:text-gray-400 opacity-0 invisible 
+           transition-all duration-300 cursor-pointer
+           hover:bg-gray-50 dark:hover:bg-gray-700;
   }
 
   .scroll-top.visible {
-    @apply opacity-100 pointer-events-auto animate-fade-in;
+    @apply opacity-100 visible;
   }
 
-  /* Kawaii Loading skeleton animation */
   .skeleton {
-    @apply bg-gradient-to-r from-pink-100 via-pink-200 to-pink-100 dark:from-gray-700 
-           dark:via-gray-600 dark:to-gray-700 bg-[length:200%_100%] animate-shimmer
-           rounded-kawaii;
+    @apply animate-pulse;
   }
-  
-  /* Kawaii badge */
+
   .kawaii-badge {
-    @apply inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium 
-           bg-kawaii-pink/20 text-primary-700 dark:bg-kawaii-pink/30 dark:text-white
-           border border-kawaii-pink/30 transition-all duration-200
-           hover:scale-110 hover:shadow-sm;
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+           bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200
+           transition-all duration-200 hover:bg-pink-200 dark:hover:bg-pink-800;
   }
-  
-  /* Kawaii icon button */
+
   .kawaii-icon-btn {
-    @apply p-1.5 rounded-full transition-all duration-200 bg-white/60 dark:bg-gray-800/60
-           border border-kawaii-pink/20 dark:border-primary-700/30
-           hover:bg-kawaii-pink/20 dark:hover:bg-primary-700/30
-           hover:scale-110 active:scale-90;
+    @apply p-2 rounded-full transition-colors
+           hover:bg-gray-100 dark:hover:bg-gray-700
+           text-gray-600 dark:text-gray-400
+           hover:text-primary-500 dark:hover:text-primary-400;
   }
-  
-  /* Kawaii tooltip */
+
   .kawaii-tooltip {
-    @apply relative inline-block;
+    @apply relative;
   }
-  
+
   .kawaii-tooltip::before {
-    @apply content-[attr(data-tooltip)] absolute -top-10 left-1/2 -translate-x-1/2
-           bg-kawaii-pink text-white px-3 py-1 rounded-kawaii text-sm whitespace-nowrap
-           opacity-0 invisible transition-all duration-200 scale-90 z-10;
+    @apply content-[attr(data-tooltip)] absolute -top-8 left-1/2 -translate-x-1/2
+           bg-gray-800 text-white text-xs py-1 px-2 rounded whitespace-nowrap
+           opacity-0 invisible transition-all duration-200;
   }
-  
+
   .kawaii-tooltip::after {
-    @apply content-[''] absolute -top-3 left-1/2 -translate-x-1/2 border-4
-           border-t-kawaii-pink border-x-transparent border-b-transparent
-           opacity-0 invisible transition-all duration-200 z-10;
+    @apply content-[''] absolute -top-3 left-1/2 -translate-x-1/2
+           border-4 border-transparent border-t-gray-800
+           opacity-0 invisible transition-all duration-200;
   }
-  
+
   .kawaii-tooltip:hover::before,
   .kawaii-tooltip:hover::after {
-    @apply opacity-100 visible scale-100;
+    @apply opacity-100 visible;
   }
 
-  /* 自定義樣式以保持方角 */
+  /* 移除Tailwind的圓角覆蓋 */
   .rounded-none {
-    border-radius: 0 !important;
+    border-radius: 0;
   }
 
-  /* 為確保所有元素都是方角，覆蓋常見的圓角類 */
+  /* 使用我們自己的圓滑圓角 */
   .rounded, .rounded-sm, .rounded-md, .rounded-lg, .rounded-xl, .rounded-2xl, .rounded-full, .rounded-t, .rounded-b, .rounded-r, .rounded-l, .rounded-tr, .rounded-tl, .rounded-br, .rounded-bl {
-    border-radius: 0 !important;
+    border-radius: 16px;
   }
 
-  /* 視頻進度條樣式 */
+  /* 視頻進度條 */
   .video-progress-bar {
-    @apply h-2.5 w-full bg-gray-600/50 rounded-none mb-2 cursor-pointer relative;
-    transition: height 0.2s ease;
+    @apply relative h-1 bg-gray-200 dark:bg-gray-700 cursor-pointer 
+           transition-all duration-200 group;
   }
-  
+
   .video-progress-bar:hover {
     @apply h-3;
   }
-  
+
   .video-progress-bar .progress-fill {
-    @apply absolute top-0 left-0 h-full bg-primary-500 rounded-none;
+    @apply absolute top-0 left-0 h-full bg-primary-500;
   }
-  
+
   .video-progress-bar .progress-handle {
-    @apply absolute top-1/2 transform -translate-y-1/2 w-3 h-3 bg-white rounded-none shadow-lg opacity-0;
-    transition: opacity 0.2s ease, width 0.2s ease, height 0.2s ease;
+    @apply absolute top-1/2 -translate-y-1/2 w-3 h-3 
+           bg-primary-500 rounded-full transform scale-0
+           transition-all duration-200;
   }
-  
+
   .video-progress-bar:hover .progress-handle,
-  .video-progress-bar .progress-handle.active {
-    @apply opacity-100 w-4 h-4;
+  .video-progress-bar:active .progress-handle {
+    @apply scale-100;
   }
 }
 
-/* Kawaii parallax background effect */
+/* 視差背景效果 */
 .parallax-bg {
-  @apply fixed inset-0 z-[-1] bg-gradient-to-br from-kawaii-pink/10 to-kawaii-sky/10
-         dark:from-primary-900/50 dark:to-accent-900/40;
-  transform: translateZ(0);
-  will-change: transform;
+  @apply fixed inset-0 bg-cover bg-center -z-10;
+  background-image: url('data:image/svg+xml;charset=utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800"%3E%3Cdefs%3E%3CradialGradient id="a" cx="400" cy="400" r="50%" gradientUnits="userSpaceOnUse"%3E%3Cstop offset="0" stop-color="%23FFC0CB" stop-opacity=".1"/%3E%3Cstop offset="1" stop-color="%23FFC0CB" stop-opacity="0"/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect fill="url(%23a)" width="800" height="800"/%3E%3C/svg%3E');
+  opacity: 0.5;
 }
 
-/* Kawaii scrollbar */
+/* 美化滾動條 */
 ::-webkit-scrollbar {
-  @apply w-3;
+  @apply w-2;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-kawaii-pink/10 dark:bg-gray-800 rounded-full;
+  @apply bg-transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-primary-300 dark:bg-primary-700 rounded-full
-         hover:bg-primary-400 dark:hover:bg-primary-600
-         transition-colors duration-200 border-2 border-white/50 dark:border-gray-800/50;
+  @apply bg-gray-300 dark:bg-gray-700 
+         rounded-full hover:bg-gray-400 
+         dark:hover:bg-gray-600;
 }
 
-/* Kawaii decoration elements */
+/* 可愛風格的背景點點圖案 */
 .kawaii-dot-pattern {
-  background-image: radial-gradient(circle, rgba(255, 94, 151, 0.1) 1px, transparent 1px);
-  background-size: 20px 20px;
+  background-color: theme('colors.pink.50');
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffb6c1' fill-opacity='0.1' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 .kawaii-star {
-  @apply inline-block text-kawaii-yellow animate-pulse-subtle;
+  @apply text-yellow-300 dark:text-yellow-400;
 }
 
 .kawaii-cherry-blossom {
-  @apply inline-block text-pink-400 animate-bounce-small;
+  @apply text-pink-300 dark:text-pink-400;
 }
 
-/* 保留 .kawaii-heart 以兼容現有代碼，但樣式改為櫻花樣式 */
 .kawaii-heart {
-  @apply inline-block text-pink-400 animate-bounce-small;
+  @apply text-red-400 dark:text-red-300;
 }
 
-/* Kawaii selection */
 ::selection {
-  @apply bg-primary-300 text-white;
+  @apply bg-pink-200 dark:bg-pink-800;
 }
 
-/* Layout optimization classes */
+/* 佈局工具類 */
 .kawaii-container {
-  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4;
+  @apply container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl;
 }
 
 .kawaii-section {
-  @apply my-8 p-6 bg-white/80 dark:bg-gray-800/80 rounded-kawaii shadow-kawaii;
+  @apply bg-white dark:bg-gray-800 rounded-kawaii p-4 sm:p-6 shadow-sm;
 }
 
 .kawaii-grid {
-  @apply grid gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5;
+  @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6;
 }
 
 .kawaii-flex-center {
@@ -260,42 +260,105 @@
 }
 
 .kawaii-divider {
-  @apply my-2 h-px bg-kawaii-pink/20 dark:bg-primary-700/20 rounded-full;
+  @apply h-px w-full bg-gray-200 dark:bg-gray-700 my-4;
 }
 
 .kawaii-page-header {
-  @apply mb-6 pb-3 border-b border-kawaii-pink/20 dark:border-primary-700/20;
+  @apply mb-6 pb-3 border-b border-gray-200 dark:border-gray-700;
 }
 
 .kawaii-sidebar {
-  @apply w-64 p-4 bg-white/90 dark:bg-gray-800/90 rounded-kawaii shadow-kawaii 
-         border border-kawaii-pink/20 dark:border-primary-700/30;
+  @apply w-64 shrink-0 border-r border-gray-200 dark:border-gray-700 
+         h-[calc(100vh-64px)] overflow-y-auto sticky top-16;
 }
 
 .kawaii-main-content {
-  @apply flex-1 p-4;
+  @apply flex-1 min-w-0 overflow-hidden;
 }
 
-/* 輔助工具 */
+/* 多行文本截斷 */
 .line-clamp-1 {
-  overflow: hidden;
   display: -webkit-box;
-  -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .line-clamp-2 {
-  overflow: hidden;
   display: -webkit-box;
-  -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
+/* 櫻花特效容器 */
 .cherry-blossom-container {
-  @apply pointer-events-none overflow-hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
 }
 
 .cherry-blossom-petal {
-  @apply absolute animate-fall animate-sway;
-  will-change: transform;
+  position: absolute;
+  background-color: #FFB7C5;
+  border-radius: 150% 0 150% 0;
+  animation: fall linear forwards;
+}
+
+/* 心形圖標動畫 */
+.animate-heart {
+  animation: heart-beat 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes heart-beat {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+
+/* 櫻花飄落動畫 */
+@keyframes fall {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(0deg) scale(0.5);
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--endX), var(--endY)) rotate(var(--finalRotate)) scale(var(--finalScale));
+  }
+}
+
+/* 淡入動畫 */
+.animate-fade-in {
+  animation: fade-in 0.5s ease-in-out;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 調整暗模式下的顏色 */
+.dark .bg-white {
+  background-color: #1A202C;
+}
+
+.dark .text-gray-700 {
+  color: #CBD5E0;
+}
+
+.dark .border-gray-200 {
+  border-color: #2D3748;
 }
