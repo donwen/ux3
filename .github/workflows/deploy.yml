@@ -32,6 +32,18 @@ jobs:
         env:
           VITE_APP_BASE_URL: /ux3
 
+      # 確保gh-pages分支存在
+      - name: Create gh-pages branch if not exists
+        run: |
+          git fetch
+          if ! git ls-remote --heads origin gh-pages | grep gh-pages; then
+            git checkout --orphan gh-pages
+            git reset --hard
+            git commit --allow-empty -m "Initial gh-pages commit"
+            git push origin gh-pages
+            git checkout main
+          fi
+
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
