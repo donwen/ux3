@@ -111,13 +111,15 @@
   .scroll-top {
     @apply fixed bottom-4 right-4 w-10 h-10 bg-white dark:bg-gray-800 
            rounded-full shadow-md flex items-center justify-center 
-           text-gray-600 dark:text-gray-400 opacity-0 invisible 
+           text-gray-600 dark:text-gray-400 opacity-0
            transition-all duration-300 cursor-pointer
            hover:bg-gray-50 dark:hover:bg-gray-700;
+    visibility: hidden;
   }
 
   .scroll-top.visible {
-    @apply opacity-100 visible;
+    opacity: 1;
+    visibility: visible;
   }
 
   .skeleton {
@@ -171,7 +173,12 @@
   /* 視頻進度條 */
   .video-progress-bar {
     @apply relative h-1 bg-gray-200 dark:bg-gray-700 cursor-pointer 
-           transition-all duration-200 group;
+           transition-all duration-200;
+  }
+
+  /* 添加group類作為獨立的類而不是通過@apply */
+  .video-progress-bar.group {
+    /* 已經包含在.video-progress-bar中的樣式 */
   }
 
   .video-progress-bar:hover {
