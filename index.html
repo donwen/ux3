@@ -1,10 +1,14 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-TW">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="https://i.imgur.com/SMJTt2P.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <base href="/ux3/" />
+    
+    <!-- 字體預加載 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700&family=Noto+Sans+TC:wght@300;400;700&display=swap" rel="stylesheet">
     
     <!-- Primary Meta Tags -->
     <title>UX3 期中報告案例影片</title>
@@ -24,18 +28,375 @@
     <meta property="twitter:title" content="UX3 -2023-2025 UX 案例" />
     <meta property="twitter:description" content="UX3 共學社群" />
     <meta property="twitter:image" content="https://i.imgur.com/SMJTt2P.png" />
-
+    
     <!-- Additional SEO Meta Tags -->
     <meta name="keywords" content="UX設計, 使用者體驗, 案例研究, 設計思維, 使用者介面, 互動設計, 期中報告" />
     <meta name="author" content="UX3 Team" />
     <meta name="robots" content="index, follow" />
-    
-    <!-- Theme Color for browsers -->
-    <meta name="theme-color" content="#3182CE" />
-    <script type="module" crossorigin src="/ux3/assets/index.zxsUGfUk.js"></script>
-    <link rel="stylesheet" crossorigin href="/ux3/assets/index.CLtHmeoU.css">
+
+    <!-- 直接應用靜態樣式，不依賴JavaScript -->
+    <style>
+      /* 基本重置和通用樣式 */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      
+      body, html {
+        margin: 0;
+        padding: 0;
+        font-family: 'Noto Sans TC', sans-serif;
+        background-color: #FFF5F7;
+        color: #333;
+        min-height: 100vh;
+        display: block;
+      }
+      
+      /* 主容器樣式 */
+      .main-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      
+      /* 頁頭樣式 */
+      .page-header {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        padding: 15px 20px;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      .logo-area {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      
+      .logo-icon {
+        width: 36px;
+        height: 36px;
+        background-color: #FF5E97;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+      }
+      
+      .site-title {
+        color: #FF5E97;
+        font-size: 24px;
+        font-weight: bold;
+      }
+      
+      .search-area {
+        display: flex;
+        gap: 10px;
+      }
+      
+      .search-input {
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        width: 200px;
+      }
+      
+      .search-button {
+        background-color: #FF5E97;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 8px 16px;
+        cursor: pointer;
+        font-weight: bold;
+      }
+      
+      /* 內容控制項 */
+      .controls {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+      
+      .control-button {
+        padding: 6px 15px;
+        background-color: #f0f0f0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      
+      .control-button.active {
+        background-color: #FF5E97;
+        color: white;
+      }
+      
+      /* 視頻網格 */
+      .video-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px;
+      }
+      
+      .video-card {
+        background-color: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        transition: transform 0.2s ease;
+      }
+      
+      .video-card:hover {
+        transform: translateY(-5px);
+      }
+      
+      .video-thumb {
+        background-color: #eee;
+        height: 160px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #666;
+        font-size: 14px;
+      }
+      
+      .video-info {
+        padding: 15px;
+      }
+      
+      .video-title {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #333;
+      }
+      
+      .video-creator {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 8px;
+      }
+      
+      .video-meta {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        color: #888;
+      }
+      
+      /* 頁腳 */
+      .footer {
+        margin-top: 40px;
+        text-align: center;
+        padding: 20px;
+        color: #666;
+        font-size: 14px;
+      }
+      
+      /* 響應式調整 */
+      @media (max-width: 768px) {
+        .page-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
+        }
+        
+        .search-area {
+          width: 100%;
+        }
+        
+        .search-input {
+          flex-grow: 1;
+        }
+        
+        .video-grid {
+          grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        }
+      }
+      
+      @media (max-width: 480px) {
+        .video-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      
+      /* 隱藏React根元素，直到它有內容 */
+      #root:empty {
+        display: none;
+      }
+      
+      /* 當React加載完成時，隱藏靜態內容 */
+      body.react-loaded .static-content {
+        display: none;
+      }
+    </style>
+    <script type="module" crossorigin src="/ux3/assets/index.CKa_Tey9.js"></script>
+    <link rel="stylesheet" crossorigin href="/ux3/assets/index.DtCtQIUJ.css">
   </head>
   <body>
+    <!-- React掛載點 -->
     <div id="root"></div>
+    
+    <!-- 靜態內容 - 預設顯示 -->
+    <div class="static-content">
+      <div class="main-container">
+        <!-- 頁頭 -->
+        <header class="page-header">
+          <div class="logo-area">
+            <div class="logo-icon">UX</div>
+            <h1 class="site-title">UX3 期中報告案例影片</h1>
+          </div>
+          <div class="search-area">
+            <input type="text" class="search-input" placeholder="搜索視頻...">
+            <button class="search-button">搜索</button>
+          </div>
+        </header>
+        
+        <!-- 控制項 -->
+        <div class="controls">
+          <button class="control-button active">最新</button>
+          <button class="control-button">熱門</button>
+        </div>
+        
+        <!-- 視頻列表 -->
+        <div class="video-grid">
+          <!-- 視頻卡片 1 -->
+          <div class="video-card">
+            <div class="video-thumb">視頻縮略圖</div>
+            <div class="video-info">
+              <h3 class="video-title">數位化轉型與使用者體驗</h3>
+              <div class="video-creator">UX3 Team</div>
+              <div class="video-meta">
+                <span>2023-10-15</span>
+                <span>1205 次觀看</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 視頻卡片 2 -->
+          <div class="video-card">
+            <div class="video-thumb">視頻縮略圖</div>
+            <div class="video-info">
+              <h3 class="video-title">行動應用的無障礙設計原則</h3>
+              <div class="video-creator">Accessibility Design Lab</div>
+              <div class="video-meta">
+                <span>2023-09-28</span>
+                <span>972 次觀看</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 視頻卡片 3 -->
+          <div class="video-card">
+            <div class="video-thumb">視頻縮略圖</div>
+            <div class="video-info">
+              <h3 class="video-title">情感設計如何提升產品體驗</h3>
+              <div class="video-creator">Emotional Design Studio</div>
+              <div class="video-meta">
+                <span>2023-10-05</span>
+                <span>1456 次觀看</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 視頻卡片 4 -->
+          <div class="video-card">
+            <div class="video-thumb">視頻縮略圖</div>
+            <div class="video-info">
+              <h3 class="video-title">用戶研究方法與工具比較</h3>
+              <div class="video-creator">Research Methods Lab</div>
+              <div class="video-meta">
+                <span>2023-08-22</span>
+                <span>2103 次觀看</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 視頻卡片 5 -->
+          <div class="video-card">
+            <div class="video-thumb">視頻縮略圖</div>
+            <div class="video-info">
+              <h3 class="video-title">設計思維在企業創新中的應用</h3>
+              <div class="video-creator">Innovation Design Team</div>
+              <div class="video-meta">
+                <span>2023-09-10</span>
+                <span>1879 次觀看</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 視頻卡片 6 -->
+          <div class="video-card">
+            <div class="video-thumb">視頻縮略圖</div>
+            <div class="video-info">
+              <h3 class="video-title">使用者旅程映射技巧與案例</h3>
+              <div class="video-creator">UX Mapping Workshop</div>
+              <div class="video-meta">
+                <span>2023-10-12</span>
+                <span>986 次觀看</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 視頻卡片 7 -->
+          <div class="video-card">
+            <div class="video-thumb">視頻縮略圖</div>
+            <div class="video-info">
+              <h3 class="video-title">原型設計工具深度對比</h3>
+              <div class="video-creator">Prototyping Masters</div>
+              <div class="video-meta">
+                <span>2023-09-18</span>
+                <span>1542 次觀看</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 視頻卡片 8 -->
+          <div class="video-card">
+            <div class="video-thumb">視頻縮略圖</div>
+            <div class="video-info">
+              <h3 class="video-title">數據驅動的UX決策過程</h3>
+              <div class="video-creator">Data & UX Alliance</div>
+              <div class="video-meta">
+                <span>2023-07-30</span>
+                <span>1823 次觀看</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 頁腳 -->
+        <footer class="footer">
+          <p>&copy; 2025 UX3 共學社群. 版權所有.</p>
+        </footer>
+      </div>
+    </div>
+    
+    <!-- React應用腳本 -->
+    
+    <!-- 當React加載完成時隱藏靜態內容 -->
+    <script>
+      // 監聽React加載完成事件
+      window.addEventListener('app-loaded', function() {
+        document.body.classList.add('react-loaded');
+      });
+      
+      // 兩秒後檢查React是否已加載，如果已加載則隱藏靜態內容
+      setTimeout(function() {
+        const root = document.getElementById('root');
+        if (root && root.children.length > 0) {
+          document.body.classList.add('react-loaded');
+        }
+      }, 2000);
+    </script>
   </body>
 </html>
