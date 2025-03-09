@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>UX3 - 重定向中</title>
+  <script type="text/javascript">
+    // 單頁應用的GitHub Pages路由處理
+    (function() {
+      // 基本路徑，與vite.config.ts中的base保持一致
+      var basePath = '/ux3/';
+      var segmentCount = 1; // 在URL中，/ux3/之後的部分是路由
+      var location = window.location;
+      
+      // 擷取路徑名稱並確定重定向URL
+      var path = location.pathname;
+      var redirectUrl = basePath;
+      
+      // 只處理404頁面
+      if (path.indexOf(basePath) === 0 && path !== basePath && path !== basePath + 'index.html') {
+        // 確保路徑中包含應用路徑
+        redirectUrl = basePath + '#' + path.slice(basePath.length);
+      }
+      
+      window.location.replace(
+        location.protocol + '//' +
+        location.hostname +
+        (location.port ? ':' + location.port : '') +
+        redirectUrl
+      );
+    })();
+  </script>
+</head>
+<body>
+  <h2 style="font-family: sans-serif; text-align: center; margin-top: 50px; color: #ff99cc;">
+    重定向中...
+  </h2>
+  <div style="text-align: center; margin-top: 20px; font-family: sans-serif; color: #666;">
+    如果頁面沒有自動跳轉，請<a href="/ux3/">點擊這裡</a>
+  </div>
+</body>
+</html> 
