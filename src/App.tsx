@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { Search } from 'lucide-react';
 import VideoGrid from './components/VideoGrid';
 import HeaderControls from './components/HeaderControls';
@@ -12,6 +12,7 @@ import { supabase } from './lib/supabaseClient';
 import { useTranslation } from './hooks/useTranslation';
 import CherryBlossomProvider from './contexts/CherryBlossomContext';
 import TestPage from './pages/TestPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
   const [videos, setVideos] = useState<Video[]>([]);
@@ -165,6 +166,7 @@ function App() {
                   </>
                 }
               />
+              <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </main>
 
