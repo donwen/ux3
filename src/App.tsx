@@ -8,7 +8,7 @@ import Logo from './components/Logo';
 import VideoPage from './pages/VideoPage';
 import SortControl, { SortOption } from './components/SortControl';
 import { Video } from './types';
-import { supabase } from './lib/supabaseClient';
+import { supabase, getVideosWithFallback } from './lib/supabaseClient';
 import { useTranslation } from './hooks/useTranslation';
 import CherryBlossomProvider from './contexts/CherryBlossomContext';
 import TestPage from './pages/TestPage';
@@ -30,40 +30,26 @@ function App() {
       setIsLoading(true);
       const from = (pageNumber - 1) * videosPerPage;
       const to = from + videosPerPage - 1;
-
-      let query = supabase
-        .from('videos')
-        .select('*')
-        .range(from, to);
-
-      // Apply sorting
-      switch (sortBy) {
-        case 'title':
-          query = query.order('title', { ascending: true });
-          break;
-        case 'likes':
-          query = query.order('likes_count', { ascending: false });
-          break;
-        case 'date':
-        default:
-          query = query.order('created_at', { ascending: false });
-      }
-
-      const { data, error } = await query;
-
-      if (!error) {
-        if (pageNumber === 1) {
-          setVideos(data || []);
-        } else {
-          setVideos(prev => [...prev, ...(data || [])]);
-        }
-        setHasMore((data || []).length === videosPerPage);
-      } else {
-        console.warn('Error fetching videos:', error.message);
-      }
+      
+      // 使用帶後備功能的API調用
+      const videos = await getVideosWithFallback();
+      
+      // 本地分頁處理
+      const paginatedVideos = videos.slice(from, to + 1);
+      
+      // 過濾搜索結果
+      const filteredVideos = paginatedVideos.filter(video => 
+        !searchTerm || video.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      
+      setVideos(prevVideos => 
+        pageNumber === 1 ? filteredVideos : [...prevVideos, ...filteredVideos]
+      );
+      
+      setHasMore(videos.length > to);
+      setIsLoading(false);
     } catch (error) {
-      console.warn('Error loading videos:', error);
-    } finally {
+      console.error('Error fetching videos:', error);
       setIsLoading(false);
     }
   };
