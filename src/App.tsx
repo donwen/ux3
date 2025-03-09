@@ -85,7 +85,7 @@ function App() {
   );
 
   return (
-    <Router>
+    <Router basename={import.meta.env.BASE_URL || '/ux3'}>
       <CherryBlossomProvider>
         <div className="min-h-screen bg-pink-50 dark:bg-gray-900 kawaii-dot-pattern">
           <div className="parallax-bg" />
