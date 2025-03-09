@@ -1,16 +1,36 @@
 import { createClient } from '@supabase/supabase-js';
 import sampleVideos from '../data/sampleVideos'; // 導入示例視頻數據
 
-// 生產環境中使用環境變量或回退到模擬API
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://public-data-yicqaqyuyq-df.a.run.app';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'public-access-only';
+// 檢查是否在GitHub Pages環境中運行
+const isGitHubPages = window.location.hostname.includes('github.io');
 
-if (!import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KEY) {
-  console.warn('Supabase credentials not found. Please click "Connect to Supabase" button to set up your database connection.');
+// 如果在GitHub Pages中，直接使用本地數據
+let supabase;
+
+if (isGitHubPages) {
+  console.info('檢測到GitHub Pages環境，直接使用本地數據');
+  // 創建一個模擬的Supabase客戶端
+  supabase = {
+    from: () => ({
+      select: () => ({
+        order: () => ({
+          range: () => new Promise(resolve => resolve({ data: sampleVideos, error: null })),
+          then: (callback) => callback({ data: sampleVideos, error: null }),
+        }),
+        then: (callback) => callback({ data: sampleVideos, error: null }),
+        count: () => new Promise(resolve => resolve({ count: sampleVideos.length, error: null })),
+      }),
+      insert: () => new Promise(resolve => resolve({ error: null })),
+    }),
+  };
+} else {
+  // 在本地開發環境中使用真實的Supabase
+  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://public-data-yicqaqyuyq-df.a.run.app';
+  const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'public-access-only';
+  supabase = createClient(supabaseUrl, supabaseAnonKey);
 }
 
-// 創建Supabase客戶端
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export { supabase };
 
 // 測試連接並在控制台輸出結果
 supabase.from('videos').select('count', { count: 'exact' }).then(
@@ -26,8 +46,14 @@ supabase.from('videos').select('count', { count: 'exact' }).then(
   console.warn('Supabase連接嘗試失敗:', err.message);
 });
 
-// 提供後備方法，在API失敗時使用本地數據
+// 提供後備方法，在任何情況下都能獲取數據
 export const getVideosWithFallback = async (options = {}) => {
+  if (isGitHubPages) {
+    // 在GitHub Pages中直接返回示例數據
+    console.info('使用本地示例數據');
+    return sampleVideos;
+  }
+  
   try {
     // 嘗試從Supabase獲取數據
     const { data, error } = await supabase
